@@ -1,0 +1,45 @@
+name: InternTrack CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  backend-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          pip install -r requirements.txt
+      - name: Verify Flask app imports & syntax
+        run: |
+          cd backend
+          python -c "from app import create_app; app = create_app(); print('Flask app initialized successfully')"
+
+  frontend-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install & build React app
+        run: |
+          cd frontend
+          npm install
+          npm run build
+
+  docker-build:
+    needs: [backend-check, frontend-build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker Compose stack
+        run: docker compose build
