@@ -1,6 +1,7 @@
 ﻿import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../api/client";
+
 import {
   Briefcase,
   Users,
@@ -14,6 +15,8 @@ import {
   Send,
   PlusCircle,
 } from "lucide-react";
+
+const BACKEND_URL = (import.meta.env.VITE_API_URL || "http://127.0.0.1:5000/api").replace(/\/api$/, "");
 
 export default function HRDashboard() {
   const navigate = useNavigate();
@@ -292,11 +295,11 @@ export default function HRDashboard() {
                     {app.resume_path && (
                       <div className="pt-1">
                         <a
-                          href={`http://127.0.0.1:5000/uploads/${app.resume_path}`}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-1 text-xs font-medium text-indigo-600 hover:underline"
-                        >
+  href={`${BACKEND_URL}/uploads/${app.resume_path}`}
+  target="_blank"
+  rel="noreferrer"
+  className="inline-flex items-center gap-1 text-xs font-medium text-indigo-600 hover:underline"
+>
                           <FileText className="w-3.5 h-3.5" /> View Uploaded Resume
                         </a>
                       </div>

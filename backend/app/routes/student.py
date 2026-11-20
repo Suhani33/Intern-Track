@@ -232,14 +232,14 @@ def apply_internship(internship_id):
 
     comp_name = internship.company.name if internship.company else "Company"
     notify_user(
-        user,
-        title=f"Application Submitted — {comp_name}",
-        message=(
+        user.id,
+        user.email,
+        f"Application Submitted — {comp_name}",
+        (
             f"Hi {full_name},\n\n"
             f"Your application ({ref_id}) for {internship.title} at {comp_name} "
             f"has been submitted successfully."
         ),
-        link="/applications",
     )
     db.session.commit()
 
