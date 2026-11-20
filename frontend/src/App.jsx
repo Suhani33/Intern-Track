@@ -14,6 +14,8 @@ import Profile from "./pages/student/Profile";
 import HRDashboard from "./pages/company/HRDashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import ScheduleInterview from "./pages/company/ScheduleInterview";
+import CompanyProfile from "./pages/company/ComapanyProfile";
+import PostInternship from "./pages/company/PostInternship";
 
 export default function App() {
   return (
@@ -33,8 +35,10 @@ export default function App() {
             <Route path="/hr/applications/:appId/schedule" element={<ScheduleInterview />} />
             <Route path="/offers" element={<Offers />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/hr" element={<HRDashboard />} />
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/hr" element={<HRDashboard />} />
+<Route path="/hr/company" element={<CompanyProfile />} />
+<Route path="/hr/post-internship" element={<PostInternship />} />
           </Routes>
         </div>
       </BrowserRouter>
